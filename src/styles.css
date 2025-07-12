@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar-nav .nav-item .nav-link:hover {
+  background-color: yellow;
+  color: red;
+}
+
+.active-menu {
+  background-color: yellow;
+  color: red !important;
+  font-weight: bold;
+
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: white;
+} 
+
+.company-name {
+  color: white;
+  font-weight: bold;
+  font-size: 1.0em;
+}
