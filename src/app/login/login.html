@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h4>Login</h4>
+      
+      <div class="input-group mb-2">
+        <input
+          class="form-control"
+          placeholder="Enter your name"
+          [(ngModel)]="tempName"
+          [disabled]="store.isLoggedIn()"
+        />
+        </div> 
+
+        <div class="input-group mb-2">
+        <input
+          class="form-control"
+          placeholder="Enter your password"
+          [(ngModel)]="tempPassword"
+          [disabled]="store.isLoggedIn()"
+        />
+        </div>
+
+        <div class="input-group mb-2">
+        <button class="btn btn-primary" (click)="login()" [disabled]="store.isLoggedIn()">
+          Login
+        </button>
+        <button class="btn btn-primary" (click)="store.logout()" [disabled]="!store.isLoggedIn()">
+          Logout
+        </button>
+        </div>
+       
+      <p class="mt-2 text-muted" *ngIf="store.isLoggedIn()">
+        Welcome, <strong>{{ store.loginName() }}</strong>!
+      </p>
+    </div>
+  </div>
+
+   
+</div>

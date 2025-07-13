@@ -1,37 +1,47 @@
 <div class="container mt-5">
   <div class="row mb-4">
     <div class="col-md-6">
-      <h4>Login</h4>
-      <div class="input-group">
+      <h4>Register</h4>
+
+      <div class="input-group mb-2">
         <input
           class="form-control"
           placeholder="Enter your name"
           [(ngModel)]="tempName"
-          [disabled]="store.isLoggedIn()"
+          name="name"
         />
-        <button class="btn btn-primary" (click)="store.updateLoginName(tempName)" [disabled]="store.isLoggedIn()">
-          Login
-        </button>
-        <button class="btn btn-danger" (click)="store.logout()" *ngIf="store.isLoggedIn()">
-          Logout
-        </button>
       </div>
-      <p class="mt-2 text-muted" *ngIf="store.isLoggedIn()">
-        Welcome, <strong>{{ store.loginName() }}</strong>!
-      </p>
-    </div>
-  </div>
 
-  <div class="row" *ngIf="store.isLoggedIn()">
-    <div class="col-md-6">
-      <h4>Counter</h4>
-      <p class="lead">Count: {{ store.counter() }}</p>
-      <p class="text-secondary">Double: {{ store.double() }}</p>
-      <div class="btn-group">
-        <button class="btn btn-success" (click)="store.increment()">+</button>
-        <button class="btn btn-warning" (click)="store.decrement()">−</button>
-        <button class="btn btn-secondary" (click)="store.reset()">Reset</button>
+      <div class="input-group mb-2">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter password"
+          [(ngModel)]="password"
+          name="password"
+        />
       </div>
-    </div>
-  </div>
-</div>
+
+      <div class="input-group mb-2">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Confirm password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+        />
+      </div>
+
+      <div class="mb-2 text-danger" *ngIf="password && confirmPassword && password !== confirmPassword">
+        Password and Confirm Password do not match.
+      </div>
+
+      <button class="btn btn-primary"
+        (click)="register()"> 
+        Register
+      </button>
+
+       
+    </div> <!-- Close col-md-6 -->
+  </div> <!-- Close row -->
+</div> <!-- Close container -->

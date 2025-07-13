@@ -25,12 +25,16 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/register" routerLinkActive="active-menu">Register</a>
         </li>
-          
-        
 
     <!-- Show login link if not logged in -->
-    <li class="nav-item"><a class="nav-link" routerLink="/login" routerLinkActive="active-menu">Login</a></li>      
+    <li class="nav-item" *ngIf="!store.isLoggedIn()"><a class="nav-link" routerLink="/login" routerLinkActive="active-menu">Login</a></li>      
+    <li class="nav-item" *ngIf="store.isLoggedIn()"><a class="nav-link" routerLink="/login" routerLinkActive="active-menu">Logout</a></li>      
   </ul>
+
+  <span class="navbar-text" *ngIf="store.isLoggedIn()">
+        Welcome, {{ store.loginName() }}
+      </span>
+
     </div>
   </div>
 </nav>
