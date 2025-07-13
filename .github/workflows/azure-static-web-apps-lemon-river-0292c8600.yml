@@ -1,4 +1,4 @@
-name: Build & Deploy Angular 20 to Azure Static Web Apps
+name: Build & Deploys Angular 20 to Azure Static Web Apps
 
 on:
   push:
