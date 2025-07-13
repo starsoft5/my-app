@@ -1,4 +1,4 @@
-name: Build & Deploys Angular 20 to Azure Static Web Apps
+name: Build and Deploy Angular 20 to Azure Static Web Apps
 
 on:
   push:
@@ -13,29 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 22.17.0
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.17.0'
-          check-latest: true
           cache: 'npm'
 
-      - name: Upgrade npm to latest
-        run: npm install -g npm@latest
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Angular app
-        run: npm run build -- --configuration production
+      - name: Confirm token is set
+        run: |
+          if [ -z "${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}" ]; then
+            echo "❌ Token is MISSING"
+            exit 1
+          else
+            echo "✅ Token is PRESENT"
+          fi
 
       - name: Deploy to Azure Static Web Apps
-        uses: Azure/static-web-apps-deploy@v1
+        uses: azure/static-web-apps-deploy@v1
         with:
           action: "upload"
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          app_location: "/"
-          output_location: "dist/my-app"   # replace with actual output path
-          app_build_command: "npm run build"         # 👈 Azure will run this command
-          app_artifact_location: "dist/my-app"       # 👈 Where Angular CLI outputs build
-          
+          app_location: "/"  # Adjust if your Angular app is in a subfolder
+          app_build_command: "npm run build -- --configuration production"
+          app_artifact_location: "dist/my-app"  # Replace with actual output folder name
