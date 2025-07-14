@@ -17,7 +17,7 @@ export class Register {
 tempName: string = '';
 password: string = '';
 confirmPassword: string = '';
- private baseUrl = environment.azureFunctionBaseUrl;
+private baseUrl = environment.azureFunctionBaseUrl;
   constructor(public store: AppStore, private http: HttpClient) {}
 
   register() {

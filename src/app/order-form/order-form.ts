@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } fr
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'order-form',
@@ -16,7 +17,7 @@ export class OrderFormComponent {
 
   orderForm!: FormGroup;
   products: any[] = [];
-
+  private baseUrl = environment.azureFunctionBaseUrl;
   ngOnInit() {
     this.orderForm = this.fb.group({
       customerName: ['', Validators.required],
@@ -31,7 +32,7 @@ export class OrderFormComponent {
   }
 
   loadProducts() {
-    this.http.get<any[]>('http://localhost:7112/api/GetAllProductsFunction')
+    this.http.get<any[]>(`${this.baseUrl}/GetAllProductsFunction`)
       .subscribe(data => this.products = data);
   }
 
@@ -93,7 +94,7 @@ export class OrderFormComponent {
       }))
     };
 
-    this.http.post('http://localhost:7112/api/CreateOrderFunction', order).subscribe(res => {
+    this.http.post(`${this.baseUrl}/CreateOrderFunction`, order).subscribe(res => {
       alert('Order submitted successfully!');
       this.orderForm.reset();
       this.items.clear();

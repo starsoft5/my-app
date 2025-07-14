@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AppStore } from '../state/app-store.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 export class Login {
 tempName: any;
 tempPassword: any;
+private baseUrl = environment.azureFunctionBaseUrl;
 constructor(public store: AppStore, private http: HttpClient) {}
 
 login() {
@@ -21,7 +23,7 @@ login() {
     email: this.tempName,
     password: this.tempPassword
   };
-  this.http.post('http://localhost:7112/api/LoginUserFunction', userData)
+  this.http.post(`${this.baseUrl}/LoginUserFunction`, userData)
     .subscribe({
       next: () => {
         alert('Login successful');
